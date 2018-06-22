@@ -1,0 +1,64 @@
+
+
+.container {
+
+	.image-wrapper {
+		max-width: 1200px;
+		width: 100%;
+		margin: 30px auto;
+		padding: 20px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		@media @tablet {
+			display: block;
+		}
+
+		.loc-map {
+			@media @tablet {
+				max-width: 100%;
+				margin: auto;
+				text-align: center;
+			}
+		}
+
+		.story-img {
+			flex: 1 0;
+    	margin-left: 1em;
+    	margin-right: 0;
+
+    	@media @tablet {
+				max-width: 100%;
+				margin: auto;
+			}
+		}
+	}
+	
+
+	.title-box {
+		max-width: 600px;
+	  text-align: center;
+	  margin: auto;
+	  padding: 20px 0 40px;
+
+	  h1 {
+	  	line-height: 1;
+	  }
+	  .dateline, .byline {
+	  	font-size: 15px;
+	  	margin-bottom: 0px;
+	  }
+	}
+
+	figure {
+		figcaption {
+			font-family: @med-graphics;
+			font-size: 13px;
+		}
+	}
+}
+
+img {
+	max-width: 100%;
+}
