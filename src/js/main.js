@@ -34,7 +34,7 @@ function resize() {
 	}*/
 	
 	videoHeight = videos[0].clientHeight
-	titleBox.css("margin-top", videoHeight + em)
+	// titleBox.css("margin-top", videoHeight + em)
 
 	calculatePositions()
 
