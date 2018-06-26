@@ -20,6 +20,7 @@ let intersectOffset = fixedOffset + videoHeight
 let individualTop = []
 let selected
 let currIndex
+let insideIndividuals = false
 
 
 let clicked = false
@@ -112,7 +113,8 @@ window.addEventListener('load', function () {
 	  //console.log(currIndex)
 	  //console.log(selected)
 	  //console.log(clicked)
-	  if (currIndex != null) {		  
+	  if (currIndex != null) {		
+	  	insideIndividuals = true  
 	  	if (clicked) {
 		  	if (currIndex != selected) {
 		  		//console.log("don't interact yet")
@@ -128,6 +130,7 @@ window.addEventListener('load', function () {
 		  	scrollinteract()
 		  }
 		} else {
+			insideIndividuals = false
 			console.log("this one")
 			scrollinteract()
 		}
@@ -209,9 +212,12 @@ window.addEventListener('load', function () {
 
 	function hideVideo(e) {
 		if (e.target.id.charAt(1) != selected) {
-	    $('video', this).get(0).pause();
-	    $('video', this).removeClass("activeVideo")
-	  	$('video', this).addClass("passiveVideo")
+			$('video', this).get(0).pause();
+			if (insideIndividuals) {
+	    
+		    $('video', this).removeClass("activeVideo")
+		  	$('video', this).addClass("passiveVideo")
+		  }
 		}
 		//scrollinteract()
 		
