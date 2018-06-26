@@ -6,24 +6,29 @@ require("./lib/social"); //Do not delete
 
 console.log("getting in main!!!")
 
-window.addEventListener('resize', resize)
-const margin = 1
 const videos = $(".photo-nav-item > video")
-//const photoNavContainer = $(".photo-nav-container")
 const individuals = $(".individuals")
-const wrap = $(".wrap")
-const fixedOffset = 37 
-let intersectOffset = window.innerWidth > 480 ? window.innerHeight * 0.5 : window.innerHeight * 0.25
-const em = 21
-let videoHeight = 0
-let individualTop = []
-let selected = 0
 const individualDivs = $(".individual")
+const wrap = $(".wrap")
 const titleBox = $(".title-box")
+
+const fixedOffset = 37 
+const em = 21
+
+let videoHeight = 0
+let intersectOffset = window.innerHeight * 0.25
+let individualTop = []
+let selected
+let currIndex
+
+
+let clicked = false
+window.addEventListener('resize', resize)
 function resize() {
 	console.log("getting called")
 	//console.log(images.length - 1)
-	intersectOffset = window.innerWidth > 480 ? window.innerHeight * 0.5 : window.innerHeight * 0.25
+	//intersectOffset = window.innerWidth > 480 ? window.innerHeight * 0.5 : window.innerHeight * 0.25
+	
 	//images.width((window.innerWidth - (margin*(images.length-1)))/images.length)
 	/*if (window.innerWidth >= 1200) {
 		videos.width(window.innerWidth/videos.length)
@@ -33,9 +38,9 @@ function resize() {
 		wrap.width(200*videos.length)
 	}*/
 	
-	videoHeight = videos[0].clientHeight
 	//titleBox.css("margin-top", fixedOffset + videoHeight + (6*em))
-
+	videoHeight = videos[0].clientHeight
+	intersectOffset = window.innerHeight * 0.25
 	calculatePositions()
 
 }
@@ -91,14 +96,34 @@ window.addEventListener('load', function () {
 	   	photoNav.classList.add("is_unfixed")
 	    photoNav.classList.remove("is_bottom")
 	  }
-	  console.log(pageYOffset)
-	  console.log(individualTop[0])
-	  console.log(findIndex(window.pageYOffset))
 
-	  interact()
+	  currIndex = findIndex(window.pageYOffset)
+	  //console.log(currIndex)
+	  //console.log(currIndex)
+	  //console.log(selected)
+	  console.log(clicked)
+	  if (currIndex != null) {		  
+	  	if (clicked) {
+		  	if (currIndex != selected) {
+		  		//console.log("don't interact yet")
+		  	}
+		  	else {
+
+		  		//console.log("currIndex and selected are equal")
+		  		interact()
+		  		clicked = false
+		  	}
+		  } else {
+		  	//console.log("I shouldn't be getting here when clicking")
+		  	interact()
+		  }
+		} else {
+		}
 	}
+
 	function interact() {
-		let currIndex = findIndex(window.pageYOffset)
+		//console.log("interacting")
+		currIndex = findIndex(window.pageYOffset)
 	  individualDivs.each(function(i, d) {
 	  	if (i == currIndex) {
 	  		$(`#v${i}`).get(0).play()
@@ -115,11 +140,14 @@ window.addEventListener('load', function () {
 	  		$(`#v${i}`).addClass("passiveVideo")
 	 		}
 	  })
+	  
 
 	}
 	$(".photo-nav-item").on("click", function(e) {
+		clicked = true
 		selected = e.target.id.charAt(1)
 		let targetDiv = $(`#p${selected}`)
+		console.log(videoHeight)
 		var pos = targetDiv.offset().top - (fixedOffset + videoHeight);
     // animated top scrolling
     $('body, html').animate({scrollTop: pos},1000);
@@ -130,6 +158,7 @@ window.addEventListener('load', function () {
 	var figure = $(".photo-nav-item").hover(hoverVideo,hideVideo);
 
 	function hoverVideo(e) {
+		//console.log("hovering")
 	    $('video', this).get(0).play(); 
 	    $('video', this).addClass("activeVideo")
 	    $('video', this).removeClass("passiveVideo")
