@@ -2,7 +2,7 @@
 
 .container {
 
-	.image-wrapper {
+	/*.image-wrapper {
 		max-width: 1200px;
 		width: 100%;
 		margin: 30px auto;
@@ -33,17 +33,19 @@
 				margin: auto;
 			}
 		}
-	}
+	}*/
 	
 
 	.title-box {
-		max-width: 600px;
+
+		max-width: 800px;
 	  text-align: center;
 	  margin: auto;
 	  padding: 20px 0 40px;
 
 	  h1 {
 	  	line-height: 1;
+	  	font-family: @title;
 	  }
 	  .dateline, .byline {
 	  	font-size: 15px;
@@ -59,6 +61,188 @@
 	}
 }
 
-img {
-	max-width: 100%;
+.individuals-container {
+	/*content: "";
+	display: table;
+	clear: both;*/
+	display: block;
+	margin: auto;
 }
+
+.photo-nav-container {
+	position: relative;
+	z-index: 2;
+}
+
+.nav-margin {
+	width: 100%;
+	height: 1em;
+	box-shadow: 0 0 6px 0 #696969;
+}
+
+
+.individuals {
+	display: block;
+	margin: auto;
+}
+
+.photo-nav {
+	overflow: scroll;
+	width: 100%;
+
+
+
+}
+
+.photo-nav-item {
+	display: inline-block;
+    margin: 0 1px 0 0;
+
+    &:last-child {
+    	margin: 0;
+    }
+
+}
+
+
+.wrap {
+}
+
+.photo-nav-item img {
+	height: auto;
+    vertical-align: bottom;
+    width: 100%;
+}
+
+.is_fixed {
+  position: fixed !important;
+  top: 37px;
+}
+
+.is_unfixed {
+  position: absolute !important;
+  float: left;
+}
+
+.is_bottom {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+}
+
+.float-img-container {
+	max-width: 400px;
+    margin: 0 auto;
+
+    @media @tablet {
+	    max-width: 500px;
+	}
+
+}
+
+.float-img.right {
+	float: right;
+	margin: 1em -7.5em 0.5em 1.5em;
+	width: 100%;
+
+	@media @tablet {
+	    float: none;
+	    padding: 0px 15px 15px 15px;
+	    margin: auto;
+	}
+}
+
+.float-img img {
+	width: 100%;
+}
+
+.story-img {
+	max-width: 1200px;
+	display: block;
+	margin: 10px auto 10px auto;
+	padding: 15px;
+
+	img {
+		width: 100%;
+		display: block;
+		margin: auto;
+	}
+
+	.figcaption {
+		font-family: @med-graphics;
+		font-size: 13px;
+	}
+}
+
+.blockquote {
+	max-width: 730px;
+	margin: 10px auto 10px auto;
+	font-family: @body-bold;
+	font-size: 39px;
+	position: relative;
+	line-height: 1em;
+	padding: 15px;
+
+	@media @mobile {
+		font-size: 30px;
+	}
+
+	.quote:nth-of-type(1) {
+		position: relative;
+		color: @highlight;
+		font-size: 110px;
+		left: -5px;
+		top: 30px;
+
+		@media @mobile {
+			font-size: 80px;
+			top: 25px;
+		}
+	}
+
+	.quote:nth-of-type(2) {
+		position: relative;
+		color: @highlight;
+		font-size: 39px;
+		top: -2.5px;
+
+		@media @mobile {
+			font-size: 30px;
+			top: 0px;
+		}
+	}
+	.attribution {
+		font-family: "med-graphics";
+		font-size: 24px;
+		color: #635e58;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+
+		@media @mobile {
+			font-size: 18px;
+		}
+	}
+
+}
+
+h2 {
+	font-family: @title;
+	font-size: 32px;
+	display: block;
+	max-width: 730px;
+	text-align: center;
+	margin: 10px auto 20px auto;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
