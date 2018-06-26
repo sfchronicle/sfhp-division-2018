@@ -77,6 +77,7 @@ window.addEventListener('load', function () {
 	    photoNav.classList.add("is_fixed")
 	    photoNav.classList.remove("is_unfixed")
 	    photoNav.classList.remove("is_bottom")
+	    
 	  } else if (window.pageYOffset > bottomoffset) {
 	    photoNav.classList.remove("is_fixed")
 	    photoNav.classList.remove("is_unfixed")
