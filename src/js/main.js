@@ -80,14 +80,16 @@ window.addEventListener('load', function () {
 		//const timelineRect = timeline.getBoundingClientRect()
 		const topoffset = photoNavContainerRect.top + window.pageYOffset
 		const bottomoffset = individualsRect.bottom + window.pageYOffset
+		console.log(window.pageYOffset)
+		console.log(bottomoffset - (videoHeight + fixedOffset))
 
-		if (window.pageYOffset + fixedOffset >= topoffset && window.pageYOffset <= bottomoffset - window.innerHeight/2) {
+		if (window.pageYOffset + fixedOffset >= topoffset && window.pageYOffset <= bottomoffset - (videoHeight + fixedOffset)) {
 	    photoNav.classList.add("is_fixed")
 	    photoNav.classList.remove("is_unfixed")
 	    photoNav.classList.remove("is_bottom")
 	    //photoNavContainer.style.marginTop = "0px"
 	    
-	  } else if (window.pageYOffset > bottomoffset) {
+	  } else if (window.pageYOffset > bottomoffset - (videoHeight + fixedOffset)) {
 	    photoNav.classList.remove("is_fixed")
 	    photoNav.classList.remove("is_unfixed")
 	    photoNav.classList.add("is_bottom")
