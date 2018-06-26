@@ -2,7 +2,7 @@
 
 .container {
 
-
+	margin-top: 5em;
 	/*.image-wrapper {
 		max-width: 1200px;
 		width: 100%;
@@ -38,7 +38,7 @@
 	
 
 	.title-box {
-
+		position: relative;
 		max-width: 800px;
 	  text-align: center;
 	  margin-left: auto;
@@ -68,13 +68,14 @@
 	display: table;
 	clear: both;
 	margin: auto;
+	position: relative;
 }
 
 .photo-nav-container {
 	position: relative;
 	z-index: 2;
 	max-width: 1200px;
-	margin: 5em auto 0;
+	margin: auto;
 }
 
 .nav-margin {
@@ -106,12 +107,18 @@
     }
    	video {
    		width: 100%;
-   		opacity: 1;
 
-   		&:hover {
-   			opacity: 0.5;
-   		}
+
    	}
+   	.activeVideo {
+   			opacity: 1;
+   		}
+
+   		.passiveVideo {
+   			opacity: 0.2;
+
+   		}
+
 
 
 
@@ -260,6 +267,11 @@ h2 {
 
 
 	}
+}
+
+.article {
+	position: relative;
+	top: 5em;
 }
 
 
