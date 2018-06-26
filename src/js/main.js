@@ -118,6 +118,7 @@ window.addEventListener('load', function () {
 		  	interact()
 		  }
 		} else {
+			interact()
 		}
 	}
 
