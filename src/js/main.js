@@ -90,9 +90,9 @@ window.addEventListener('load', function () {
 		const bottomoffset = individualsRect.bottom + window.pageYOffset
 		//console.log(window.pageYOffset)
 		//console.log(bottomoffset - (videoHeight + fixedOffset))
-		console.log(window.pageYOffset)
-		console.log("videoHeight: " + videoHeight)
-		console.log(bottomoffset - (videoHeight + fixedOffset))
+		//console.log(window.pageYOffset)
+		//console.log("videoHeight: " + videoHeight)
+		//console.log(bottomoffset - (videoHeight + fixedOffset))
 		if (window.pageYOffset + fixedOffset >= topoffset && window.pageYOffset <= bottomoffset - (videoHeight + fixedOffset)) {
 	    photoNav.classList.add("is_fixed")
 	    photoNav.classList.remove("is_unfixed")
