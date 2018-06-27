@@ -19,8 +19,11 @@ let videoHeight = 0
 let intersectOffset = fixedOffset + videoHeight
 let individualTop = []
 let selected
-let currIndex
+let prevIndex = null
+let currIndex = 0
 let insideIndividuals = false
+let phoneHoriz = false
+let videoWidth = 0
 
 
 let clicked = false
@@ -40,8 +43,9 @@ function resize() {
 	}*/
 	
 	//titleBox.css("margin-top", fixedOffset + videoHeight + (6*em))
-	videoHeight = window.innerWidth > 670 ? (window.innerWidth/6) * 9/16 : (window.innerWidth/2.5) * 9/16
-	console.log(videoHeight)
+	phoneHoriz = window.innerWidth <= 670
+	videoWidth = phoneHoriz ? window.innerWidth/2.5 : window.innerWidth/6
+	videoHeight = phoneHoriz ? (window.innerWidth/2.5) * 9/16 : (window.innerWidth/6) * 9/16
 	intersectOffset = fixedOffset + videoHeight
 	calculatePositions()
 
@@ -108,8 +112,11 @@ window.addEventListener('load', function () {
 	   	photoNav.classList.add("is_unfixed")
 	    photoNav.classList.remove("is_bottom")
 	  }
-
+	  prevIndex = currIndex
 	  currIndex = findIndex(window.pageYOffset + intersectOffset)
+	  if (prevIndex != currIndex) {
+	  	//selected = currIndex
+	 	}
 	  // console.log(currIndex)
 	  //console.log(currIndex)
 	  //console.log(selected)
@@ -118,38 +125,60 @@ window.addEventListener('load', function () {
 	  //console.log(clicked)
 	  if (currIndex != null) {		
 	  	insideIndividuals = true  
+	  	//console.log("getting set to true")
 	  	if (clicked) {
+	  		//console.log(currIndex)
+	  		//console.log(selected)
 		  	if (currIndex != selected) {
 		  		//console.log("don't interact yet")
 		  	}
 		  	else {
 
-		  		//console.log("currIndex and selected are equal")
-		  		//clickinteract()
+		  		console.log("currIndex and selected are equal")
 		  		clicked = false
 		  	}
 		  } else {
-		  	// console.log("that one")
-		  	scrollinteract()
+		  	console.log(currIndex)
+		  	 //console.log("that one")
+		  	selected = currIndex
+		  	scrollinteract(currIndex)
+		  	if (prevIndex != currIndex) {
+		  		console.log("should be only called once")
+			  	shiftRight(prevIndex < currIndex || prevIndex == null)
+			 	}
+		  	
+		  	
 		  }
 		} else {
 			insideIndividuals = false
-			// console.log("this one")
-			scrollinteract()
+			selected = null
+			 //console.log("this one")
+		  individualDivs.each(function(i, d) {
+
+	  		$(`#v${i}`).get(0).pause()
+	  		
+  			$(`#v${i}`).addClass("activeVideo")
+  			$(`#v${i}`).removeClass("passiveVideo")
+  			
+	  	
+	  	})
+		  
 		}
 	}
 
-	function scrollinteract() {
-		// console.log("scroll interact")
+	function scrollinteract(selected) {
+		console.log("scroll interact")
 		//console.log("interacting")
-		currIndex = findIndex(window.pageYOffset + intersectOffset)
+		//prevIndex = currIndex
+		//currIndex = selected
+		//currIndex = findIndex(window.pageYOffset + intersectOffset)
 	  individualDivs.each(function(i, d) {
-	  	if (i == currIndex) {
+	  	if (i == selected) {
 	  		$(`#v${i}`).get(0).play()
 	  		
   			$(`#v${i}`).addClass("activeVideo")
   			$(`#v${i}`).removeClass("passiveVideo")
-	  	} else if (currIndex == null) {
+	  	} else if (selected == null) {
 	  		$(`#v${i}`).get(0).pause()
 	  		$(`#v${i}`).addClass("activeVideo")
   			$(`#v${i}`).removeClass("passiveVideo")
@@ -159,22 +188,33 @@ window.addEventListener('load', function () {
 	  		$(`#v${i}`).addClass("passiveVideo")
 	 		}
 	  })
-	  
+	}
 
+	function shiftRight(right) {
+		console.log("getting called on click")
+		if (phoneHoriz) {
+	  	let indexOffset = 0
+	  	if (currIndex == 0) {
+	  		indexOffset = 0
+	  	} else if (currIndex > 1) {
+	  		indexOffset = currIndex - 1
+	  	}
+
+	  	$('.wrap').animate({scrollLeft: indexOffset * videoWidth},500);
+	  }
 	}
 
 	function clickinteract(selected) {
-
-		// console.log("clickinteract")
+		prevIndex = currIndex
 		currIndex = selected
 		// console.log(currIndex)
 		individualDivs.each(function(i, d) {
-	  	if (i == currIndex) {
+	  	if (i == selected) {
 	  		$(`#v${i}`).get(0).play()
 	  		
   			$(`#v${i}`).addClass("activeVideo")
   			$(`#v${i}`).removeClass("passiveVideo")
-	  	} else if (currIndex == null) {
+	  	} else if (selected == null) {
 	  		$(`#v${i}`).get(0).pause()
 	  		$(`#v${i}`).addClass("activeVideo")
   			$(`#v${i}`).removeClass("passiveVideo")
@@ -184,11 +224,44 @@ window.addEventListener('load', function () {
 	  		$(`#v${i}`).addClass("passiveVideo")
 	 		}
 	  })
+	  if (prevIndex != currIndex) {
+
+  		console.log("should be only called once")
+	  	shiftRight(prevIndex < currIndex || prevIndex == null)
+	 	}
+	}
+
+	function hoverinteract(selected) {
+		console.log("hoverinteracting")
+		if (!insideIndividuals) {
+			individualDivs.each(function(i, d) {
+		  	if (i == selected) {
+		  		$(`#v${i}`).get(0).play()
+		  		
+	  			$(`#v${i}`).addClass("activeVideo")
+	  			$(`#v${i}`).removeClass("passiveVideo")
+		  	} else if (selected == null) {
+		  		$(`#v${i}`).get(0).pause()
+		  		$(`#v${i}`).addClass("activeVideo")
+	  			$(`#v${i}`).removeClass("passiveVideo")
+		  	} else {
+		  		$(`#v${i}`).get(0).pause()
+		  		$(`#v${i}`).removeClass("activeVideo")
+		  		$(`#v${i}`).addClass("passiveVideo")
+		 		}
+		  })
+		} else {
+			$(`#v${selected}`).get(0).play()
+			$(`#v${selected}`).addClass("activeVideo")
+			$(`#v${selected}`).removeClass("passiveVideo")
+		}
+		
 
 	}
+
 	$(".photo-nav-item").on("click", function(e) {
 		calculatePositions()
-		// console.log(individualTop)
+
 		clicked = true
 		selected = e.target.id.charAt(1)
 
@@ -196,31 +269,51 @@ window.addEventListener('load', function () {
 		//console.log(intersectOffset)
 		//console.log(window.pageYOffset + targetDiv.top - (intersectOffset + em ))
 		var pos = window.pageYOffset + targetDiv.top - intersectOffset
-		// console.log(pos)
-    // animated top scrolling
     $('body, html').animate({scrollTop: pos},1000);
     $(`#v${selected}`).get(0).play();
     clickinteract(selected)
+
+
+
 
 	})
 
 	var figure = $(".photo-nav-item").hover(hoverVideo,hideVideo);
 
 	function hoverVideo(e) {
-		//console.log("hovering")
-	    $('video', this).get(0).play(); 
-	    $('video', this).addClass("activeVideo")
-	    $('video', this).removeClass("passiveVideo")
+	  hoverinteract(e.target.id.charAt(1))
 	}
 
 	function hideVideo(e) {
-		if (e.target.id.charAt(1) != selected) {
+		//clickinteract(6)
+		/*if (e.target.id.charAt(1) != selected) {
 			$('video', this).get(0).pause();
 			if (insideIndividuals) {
 	    
 		    $('video', this).removeClass("activeVideo")
 		  	$('video', this).addClass("passiveVideo")
 		  }
+		}*/
+		if (!insideIndividuals) {
+			//console.log("getting not inside individuals plz")
+			individualDivs.each(function(i, d) {
+
+		  		$(`#v${i}`).get(0).pause()
+		  		
+	  			$(`#v${i}`).addClass("activeVideo")
+	  			$(`#v${i}`).removeClass("passiveVideo")
+	  			
+		  	
+		  })
+		} else {
+			//console.log("getting hereee")
+			if (e.target.id.charAt(1) != selected) {
+				$('video', this).get(0).pause();
+	    
+		    $('video', this).removeClass("activeVideo")
+		  	$('video', this).addClass("passiveVideo")
+		  }
+		
 		}
 		//scrollinteract()
 		
