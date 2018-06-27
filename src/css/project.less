@@ -269,9 +269,12 @@ h2 {
 
 .article {
 	position: relative;
-	top: 5em;
+	top: 7em;
 	height: 100%;
 
+	@media @tablet {
+		top: 5em;
+	}
 	@media @mobile {
 		top: 3em;
 	}
