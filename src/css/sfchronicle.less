@@ -37,17 +37,17 @@ main {
 }
 
 a {
-  color: @gray-blue;
+  color: @highlight;
   text-decoration: none;
   outline: 0 !important;
   &:hover {
-    color: darken(@gray-blue,10%);
+    color: darken(@highlight,10%);
   }
   img {
     border: none;
   }
   :hover {
-    color: darken(@gray-blue,10%);
+    color: darken(@highlight,10%);
   }
 }
 
@@ -85,7 +85,7 @@ p {
 
   a {
     text-decoration: none;
-    color: @gray-blue;
+    color: @highlight;
   }
 
   @media @mobile {
@@ -286,7 +286,7 @@ svg {
 
   &.special {
     a {
-      color: @gray-blue;
+      color: @highlight;
     }
   }
   &.social {
@@ -294,7 +294,7 @@ svg {
     margin: 0 6px;
     padding: 4px 2px;
     a {
-      color: @gray-blue;
+      color: @highlight;
     }
   }
   &.email {
@@ -572,6 +572,7 @@ footer {
   font-size: 15px;
   font-family: @med-graphics;
   width: 80%;
+  
   @media @mobile {
     width: 100%;
   }
