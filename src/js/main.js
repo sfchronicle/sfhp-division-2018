@@ -4,7 +4,7 @@ require("./lib/social"); //Do not delete
 /*var clientHeight = $(window).height();
   $('.element').css('height', clientHeight);*/
 
-console.log("getting in main!!!")
+// console.log("getting in main!!!")
 
 const videos = $(".photo-nav-item > video")
 const individuals = $(".individuals")
@@ -26,7 +26,7 @@ let insideIndividuals = false
 let clicked = false
 window.addEventListener('resize', resize)
 function resize() {
-	console.log("getting called")
+	// console.log("getting called")
 	//console.log(images.length - 1)
 	//intersectOffset = window.innerWidth > 480 ? window.innerHeight * 0.5 : window.innerHeight * 0.25
 	
@@ -56,8 +56,8 @@ function calculatePositions() {
 function findIndex(scrollPos)	{
 	//console.log(scrollPos)
 	//console.log(eventTop)
-		console.log(scrollPos)
-		console.log(individualTop)
+		// console.log(scrollPos)
+		// console.log(individualTop)
 	for (let i = 0; i < individualTop.length; i++) {
 
 		if (scrollPos >= individualTop[i] && scrollPos < individualTop[i+1]) {
@@ -107,7 +107,7 @@ window.addEventListener('load', function () {
 	  }
 
 	  currIndex = findIndex(window.pageYOffset + intersectOffset)
-	  console.log(currIndex)
+	  // console.log(currIndex)
 	  //console.log(currIndex)
 	  //console.log(selected)
 	  //console.log(currIndex)
@@ -126,18 +126,18 @@ window.addEventListener('load', function () {
 		  		clicked = false
 		  	}
 		  } else {
-		  	console.log("that one")
+		  	// console.log("that one")
 		  	scrollinteract()
 		  }
 		} else {
 			insideIndividuals = false
-			console.log("this one")
+			// console.log("this one")
 			scrollinteract()
 		}
 	}
 
 	function scrollinteract() {
-		console.log("scroll interact")
+		// console.log("scroll interact")
 		//console.log("interacting")
 		currIndex = findIndex(window.pageYOffset + intersectOffset)
 	  individualDivs.each(function(i, d) {
@@ -162,9 +162,9 @@ window.addEventListener('load', function () {
 
 	function clickinteract(selected) {
 
-		console.log("clickinteract")
+		// console.log("clickinteract")
 		currIndex = selected
-		console.log(currIndex)
+		// console.log(currIndex)
 		individualDivs.each(function(i, d) {
 	  	if (i == currIndex) {
 	  		$(`#v${i}`).get(0).play()
@@ -185,7 +185,7 @@ window.addEventListener('load', function () {
 	}
 	$(".photo-nav-item").on("click", function(e) {
 		calculatePositions()
-		console.log(individualTop)
+		// console.log(individualTop)
 		clicked = true
 		selected = e.target.id.charAt(1)
 
@@ -193,7 +193,7 @@ window.addEventListener('load', function () {
 		//console.log(intersectOffset)
 		//console.log(window.pageYOffset + targetDiv.top - (intersectOffset + em ))
 		var pos = window.pageYOffset + targetDiv.top - intersectOffset
-		console.log(pos)
+		// console.log(pos)
     // animated top scrolling
     $('body, html').animate({scrollTop: pos},1000);
     $(`#v${selected}`).get(0).play();
