@@ -2,7 +2,7 @@
 
 .container {
 
-	margin-top: 5em;
+	margin-top: 100px;
 	/*.image-wrapper {
 		max-width: 1200px;
 		width: 100%;
@@ -35,6 +35,9 @@
 			}
 		}
 	}*/
+	@media @mobile {
+		margin-top: 3em;
+	}
 	
 
 	.title-box {
@@ -258,31 +261,40 @@ h2 {
   box-shadow: 0 3px 6px #8c8c8c;
 
 	.display-flex;
+	width: 100%;
+	overflow: scroll;
 
+	@media @mobile {
+		//.flex-wrap(wrap);
+	}
 
 	.photo-nav-item{
+
 		line-height: 0;
-
-
+		@media @phone-horiz {
+	
+			.flex(0 0 40%);
+		}
 	}
 }
 
 .article {
 	position: relative;
-	top: 7em;
+	top: 140px;
 	height: 100%;
 
-	@media @tablet {
-		top: 5em;
+
+	@media @phone-horiz {
+		top: 170px;
 	}
 	@media @mobile {
-		top: 3em;
+		top: 140px;
 	}
 }
 
 .authorbio {
-    margin-top: 3em;
-    padding-bottom: 5em;
+    margin-top: 40px;
+    padding-bottom: 160px;
     font-style: italic;
     font-family: "Georgia";
   }

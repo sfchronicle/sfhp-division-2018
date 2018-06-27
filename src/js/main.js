@@ -40,7 +40,8 @@ function resize() {
 	}*/
 	
 	//titleBox.css("margin-top", fixedOffset + videoHeight + (6*em))
-	videoHeight = videos[0].clientHeight
+	videoHeight = window.innerWidth > 670 ? (window.innerWidth/6) * 9/16 : (window.innerWidth/2.5) * 9/16
+	console.log(videoHeight)
 	intersectOffset = fixedOffset + videoHeight
 	calculatePositions()
 
@@ -80,7 +81,7 @@ window.addEventListener('load', function () {
   scroll()
   function scroll() {
   	calculatePositions()
-  	videoHeight = videos[0].clientHeight
+  	//videoHeight = videos[0].clientHeight
 		intersectOffset = fixedOffset + videoHeight
 		const photoNavContainerRect = photoNavContainer.getBoundingClientRect()
 		const individualsRect = individualsContainer.getBoundingClientRect()
@@ -89,7 +90,9 @@ window.addEventListener('load', function () {
 		const bottomoffset = individualsRect.bottom + window.pageYOffset
 		//console.log(window.pageYOffset)
 		//console.log(bottomoffset - (videoHeight + fixedOffset))
-
+		console.log(window.pageYOffset)
+		console.log("videoHeight: " + videoHeight)
+		console.log(bottomoffset - (videoHeight + fixedOffset))
 		if (window.pageYOffset + fixedOffset >= topoffset && window.pageYOffset <= bottomoffset - (videoHeight + fixedOffset)) {
 	    photoNav.classList.add("is_fixed")
 	    photoNav.classList.remove("is_unfixed")
