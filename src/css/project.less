@@ -43,7 +43,7 @@
 	  text-align: center;
 	  margin-left: auto;
 	  margin-right: auto;
-	  padding: 20px 0 40px;
+	  padding: 0px 15px 40px 15px;
 
 	  h1 {
 	  	line-height: 1;
@@ -271,6 +271,10 @@ h2 {
 	position: relative;
 	top: 5em;
 	height: 100%;
+
+	@media @mobile {
+		top: 3em;
+	}
 }
 
 .authorbio {
@@ -279,6 +283,14 @@ h2 {
     font-style: italic;
     font-family: "Georgia";
   }
+
+h1 {
+	font-size: 2em;
+
+	@media @mobile {
+		font-size: 1.5em;
+	}
+}
 
 
 
