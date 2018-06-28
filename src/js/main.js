@@ -85,6 +85,7 @@ window.addEventListener('load', function () {
   scroll()
   function scroll() {
   	calculatePositions()
+  	//console.log(individualTop)
   	//videoHeight = videos[0].clientHeight
 		intersectOffset = fixedOffset + videoHeight
 		const photoNavContainerRect = photoNavContainer.getBoundingClientRect()
@@ -113,61 +114,69 @@ window.addEventListener('load', function () {
 	    photoNav.classList.remove("is_bottom")
 	  }
 	  prevIndex = currIndex
-	  currIndex = findIndex(window.pageYOffset + intersectOffset)
+	  currIndex = findIndex(window.pageYOffset + intersectOffset + 1)
 	  if (prevIndex != currIndex) {
 	  	//selected = currIndex
 	 	}
-	  // console.log(currIndex)
-	  //console.log(currIndex)
-	  //console.log(selected)
-	  //console.log(currIndex)
-	  //console.log(selected)
-	  //console.log(clicked)
+	  /*console.log(currIndex)
+	  console.log(selected)*/
+
 	  if (currIndex != null) {		
 	  	insideIndividuals = true  
 	  	//console.log("getting set to true")
 	  	if (clicked) {
 	  		//console.log(currIndex)
 	  		//console.log(selected)
-		  	if (currIndex != selected) {
+		  	if (Math.floor(window.pageYOffset + intersectOffset + 1) != individualTop[selected]) {
 		  		//console.log("don't interact yet")
+		  		//console.log(Math.floor(window.pageYOffset + intersectOffset))
+		  		//console.log(individualTop[selected])
+
 		  	}
 		  	else {
 
-		  		console.log("currIndex and selected are equal")
+		  		//console.log("currIndex and selected are equal")
 		  		clicked = false
+		  		$('body, html').stop()
+
+		  	
 		  	}
 		  } else {
-		  	console.log(currIndex)
+		  	//console.log(currIndex)
 		  	 //console.log("that one")
-		  	selected = currIndex
+		  	//selected = currIndex
+		  	//console.log("should not be geting here when clicking")
 		  	scrollinteract(currIndex)
 		  	if (prevIndex != currIndex) {
-		  		console.log("should be only called once")
-			  	shiftRight(prevIndex < currIndex || prevIndex == null)
+		  		//console.log("should be only called once")
+			  	shiftRight()
 			 	}
 		  	
 		  	
 		  }
 		} else {
+			//console.log(window.pageYOffset + intersectOffset)
 			insideIndividuals = false
-			selected = null
-			 //console.log("this one")
-		  individualDivs.each(function(i, d) {
+			//console.log("setting selected to null")
 
-	  		$(`#v${i}`).get(0).pause()
-	  		
-  			$(`#v${i}`).addClass("activeVideo")
-  			$(`#v${i}`).removeClass("passiveVideo")
-  			
-	  	
-	  	})
+			if (!clicked) {
+				prevIndex = currIndex
+				currIndex = null
+			 //console.log("this one")
+		  	individualDivs.each(function(i, d) {
+
+		  		$(`#v${i}`).get(0).pause()
+		  		
+	  			$(`#v${i}`).addClass("activeVideo")
+	  			$(`#v${i}`).removeClass("passiveVideo")
+	  		})
+	  	}
 		  
 		}
 	}
 
 	function scrollinteract(selected) {
-		console.log("scroll interact")
+		//console.log("scroll interact")
 		//console.log("interacting")
 		//prevIndex = currIndex
 		//currIndex = selected
@@ -190,8 +199,8 @@ window.addEventListener('load', function () {
 	  })
 	}
 
-	function shiftRight(right) {
-		console.log("getting called on click")
+	function shiftRight() {
+		//console.log("shift right plz!")
 		if (phoneHoriz) {
 	  	let indexOffset = 0
 	  	if (currIndex == 0) {
@@ -205,34 +214,40 @@ window.addEventListener('load', function () {
 	}
 
 	function clickinteract(selected) {
+		//console.log(selected)
+		// console.log(currIndex)
 		prevIndex = currIndex
 		currIndex = selected
-		// console.log(currIndex)
 		individualDivs.each(function(i, d) {
 	  	if (i == selected) {
+	  		//console.log("why are they all active???")
 	  		$(`#v${i}`).get(0).play()
 	  		
   			$(`#v${i}`).addClass("activeVideo")
   			$(`#v${i}`).removeClass("passiveVideo")
 	  	} else if (selected == null) {
+	  		//console.log("why are they all active?")
 	  		$(`#v${i}`).get(0).pause()
 	  		$(`#v${i}`).addClass("activeVideo")
   			$(`#v${i}`).removeClass("passiveVideo")
 	  	} else {
+	  		//console.log("why are they all passive?")
 	  		$(`#v${i}`).get(0).pause()
 	  		$(`#v${i}`).removeClass("activeVideo")
 	  		$(`#v${i}`).addClass("passiveVideo")
 	 		}
 	  })
+	  //console.log(prevIndex)
+	  //console.log(currIndex)
 	  if (prevIndex != currIndex) {
 
-  		console.log("should be only called once")
-	  	shiftRight(prevIndex < currIndex || prevIndex == null)
+  		//console.log("should be only called once")
+	  	shiftRight()
 	 	}
 	}
 
 	function hoverinteract(selected) {
-		console.log("hoverinteracting")
+		//console.log("hoverinteracting")
 		if (!insideIndividuals) {
 			individualDivs.each(function(i, d) {
 		  	if (i == selected) {
@@ -264,13 +279,17 @@ window.addEventListener('load', function () {
 
 		clicked = true
 		selected = e.target.id.charAt(1)
+		//prevIndex = selected - 1
+		//currIndex = selected
+		insideIndividuals = true
 
 		let targetDiv = document.getElementById(`p${selected}`).getBoundingClientRect()
 		//console.log(intersectOffset)
 		//console.log(window.pageYOffset + targetDiv.top - (intersectOffset + em ))
-		var pos = window.pageYOffset + targetDiv.top - intersectOffset
+		var pos = individualTop[selected] - intersectOffset
+		//console.log(window.pageYOffset)
     $('body, html').animate({scrollTop: pos},1000);
-    $(`#v${selected}`).get(0).play();
+    //$(`#v${selected}`).get(0).play();
     clickinteract(selected)
 
 
@@ -295,6 +314,7 @@ window.addEventListener('load', function () {
 		  }
 		}*/
 		if (!insideIndividuals) {
+
 			//console.log("getting not inside individuals plz")
 			individualDivs.each(function(i, d) {
 
@@ -306,7 +326,6 @@ window.addEventListener('load', function () {
 		  	
 		  })
 		} else {
-			//console.log("getting hereee")
 			if (e.target.id.charAt(1) != selected) {
 				$('video', this).get(0).pause();
 	    
